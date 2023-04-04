@@ -4,11 +4,12 @@ import {
   MultiChatSocket, 
   MultiChatWindow 
 } from "react-chat-engine-advanced";
+import Header from "@/components/customHeader";
 
 const Chat = () => {
   const chatProps = useMultiChatLogic(
     import.meta.env.VITE_PROJECT_ID,
-      "testuser",
+      "test-user",
       "1234"
     )
 
