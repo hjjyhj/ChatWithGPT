@@ -8,11 +8,11 @@ import Header from "@/components/customHeader";
 import StandardMessageForm from "@/components/customMessageForms/StandardMessageForm"
 import Ai from "@/components/customMessageForms/Ai";
 
-const Chat = () => {
+const Chat = ({user, secret}) => {
   const chatProps = useMultiChatLogic(
     import.meta.env.VITE_PROJECT_ID,
-      "Test1",
-      "123456"
+      user,
+      secret
     )
 
   return (
