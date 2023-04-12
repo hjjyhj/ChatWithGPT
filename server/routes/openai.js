@@ -1,9 +1,9 @@
 import express from "express";
 import axios from "axios";
-import dotevn from "dotenv";
-import { openai } from '../index.js';
+import dotenv from "dotenv";
+import { openai } from "../index.js";
 
-dotevn.config();
+dotenv.config();
 const router = express.Router();
 
 router.post("/text", async (req, res) => {
@@ -17,23 +17,23 @@ router.post("/text", async (req, res) => {
         { role: "user", content: text },
       ],
     });
-  console.log('response data', response.data)
 
-  await axios.post(
-    `https://api.chatengine.io/chats/${activeChatId}/messages/`,
-    { text: response.data.choices[0].text},
-    {
-      headers: {
-        "Project-ID": process.env.PROJECT_ID,
-        "User-Name": process.env.BOT_USER_NAME,
-        "User-Secret": process.env.BOT_USER_SECRET,
-      },
-    }
-  );
-    res.status(200).json({ text: response.data.choices[0].text})
-  } catch(error) {
-    console.error("error", error);
-    res.status(500).json({ error: error.message})
+    await axios.post(
+      `https://api.chatengine.io/chats/${activeChatId}/messages/`,
+      { text: response.data.choices[0].message.content },
+      {
+        headers: {
+          "Project-ID": process.env.PROJECT_ID,
+          "User-Name": process.env.BOT_USER_NAME,
+          "User-Secret": process.env.BOT_USER_SECRET,
+        },
+      }
+    );
+
+    res.status(200).json({ text: response.data.choices[0].message.content });
+  } catch (error) {
+    console.error("error", error.response.data.error);
+    res.status(500).json({ error: error.message });
   }
 });
 export default router;
