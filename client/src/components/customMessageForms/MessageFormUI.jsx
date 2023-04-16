@@ -9,7 +9,13 @@ const MessageFormUI = ({
   handleSubmit
 }) => {
   const [preview, setPreview] = useState("");
-  
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    setPreview("");
+    handleSubmit("");
+  };
+
   return (
     <div className="message-form-container">
       {preview && (
@@ -29,7 +35,7 @@ const MessageFormUI = ({
           />
         </div>
       )}
-      <div className="message-form">
+      <form className="message-form" onSubmit={handleFormSubmit}>
         <div className="message-form-input-container">
           <input
             className="message-form-input"
@@ -62,15 +68,12 @@ const MessageFormUI = ({
           <hr className="vertical-line"/>
           <PaperAirplaneIcon
             className="message-form-icon-airplane"
-            onClick={() => {
-              setPreview("");
-              handleSubmit("");
-            }}
+            onClick={handleFormSubmit}
           />
         </div>
-      </div>
+      </form>
     </div>
   )
 }
 
-export default MessageFormUI
+export default MessageFormUI;

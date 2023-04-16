@@ -7,7 +7,7 @@ const Login = ({ setUser, setSecret }) => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [triggerLogin, resultLogin] = usePostLoginMutation();
-  const [triggerSignUp] = usePostSignUpMutation();
+  const [triggerSignUp, resultSignUp] = usePostSignUpMutation();
 
   const handleLogin = () => {
     triggerLogin({ username, password });
@@ -25,6 +25,12 @@ const Login = ({ setUser, setSecret }) => {
       setErrorMessage("Login failed. Please check your credentials.");
     }
   }, [resultLogin.data, resultLogin.error]);
+
+  useEffect(() => {
+    if (resultSignUp.error) {
+      setErrorMessage("Already registered. Please login.");
+    }
+  }, [resultSignUp.error]);
 
   return (
     <div className="login-page">
