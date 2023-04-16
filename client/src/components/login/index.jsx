@@ -5,6 +5,7 @@ const Login = ({ setUser, setSecret }) => {
   const [isRegister, setIsRegister] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [triggerLogin, resultLogin] = usePostLoginMutation();
   const [triggerSignUp] = usePostSignUpMutation();
 
@@ -20,13 +21,15 @@ const Login = ({ setUser, setSecret }) => {
     if (resultLogin.data?.response) {
       setUser(username);
       setSecret(password);
+    } else if (resultLogin.error) {
+      setErrorMessage("Login failed. Please check your credentials.");
     }
-  }, [resultLogin.data]); // eslint-disable-line
+  }, [resultLogin.data, resultLogin.error]);
 
   return (
     <div className="login-page">
       <div className="login-container">
-        <h2 className="title">CHATGPT APP</h2>
+        <h2 className="title">CHAT WITH GPT</h2>
         <p
           className="register-change"
           onClick={() => setIsRegister(!isRegister)}
@@ -50,6 +53,8 @@ const Login = ({ setUser, setSecret }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
 
         <div className="login-actions">
           {isRegister ? (

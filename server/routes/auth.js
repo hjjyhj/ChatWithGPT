@@ -21,7 +21,10 @@ router.post("/login", async (req, res) => {
     res.status(200).json({ response: chatEngineResponse.data });
   } catch (error) {
     console.error("error", error);
-    res.status(500).json({ error: error.message });
+    const errorMessage = error.response?.status === 401
+      ? "Invalid username or password"
+      : "An error occurred. Please try again later.";
+    res.status(500).json({ error: errorMessage });
   }
 });
 
@@ -43,7 +46,10 @@ router.post("/signup", async (req, res) => {
     res.status(200).json({ response: chatEngineResponse.data });
   } catch (error) {
     console.error("error", error.message);
-    res.status(500).json({ error: error.message });
+    const errorMessage = error.response?.status === 400
+      ? "Username already exists"
+      : "An error occurred. Please try again later.";
+    res.status(500).json({ error: errorMessage });
   }
 });
 
