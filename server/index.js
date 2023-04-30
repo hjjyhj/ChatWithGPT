@@ -26,8 +26,8 @@ const configuration = new Configuration({
 export const openai = new OpenAIApi(configuration);
 
 /* ROUTES */
-app.use('/openai', openAiRoutes);
-app.use("/auth", authRoutes);
+app.use('/server/openai', openAiRoutes);
+app.use("/server/auth", authRoutes);
 
 
 /* SERVER SETUP */
