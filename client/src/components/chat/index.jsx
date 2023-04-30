@@ -23,7 +23,7 @@ const Chat = ({user, secret}) => {
         style={{ height: "100vh"}}
         renderChatHeader={(chat) => <Header chat={chat} />}
         renderMessageForm={(props) => {
-          if (chatProps.chat?.title.startsWith("AiChat_")) {
+          if (chatProps.chat?.title.startsWith("ChatGPT_")) {
             return <Ai props={props} activeChat={chatProps.chat} />;
           }
           return (
