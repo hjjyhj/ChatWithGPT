@@ -11,7 +11,7 @@ router.post("/text", async (req, res) => {
     const { text, activeChatId } = req.body;
 
     const response = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
+      model: "gpt-4",
       messages: [
         { role: "system", content: "You are a helpful assistant." },
         { role: "user", content: text },
